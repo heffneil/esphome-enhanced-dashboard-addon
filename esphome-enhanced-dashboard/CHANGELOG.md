@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 — 2026-04-19
+
+- Add BT Proxy column showing ✓ for devices with `bluetooth_proxy` configured
+- New **☰** button in the topbar for hiding/showing the BT Proxy column (preference saved in localStorage)
+
 ## 0.2.0 — 2026-04-18
 
 Initial Home Assistant add-on release. Based on ESPHome 2026.4.0 with the full enhanced dashboard overlay:
