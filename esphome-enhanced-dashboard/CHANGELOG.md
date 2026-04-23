@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.7 — 2026-04-23
+
+- Add **Secrets** button in the topbar that opens `secrets.yaml` in the embedded Ace editor — no need to round-trip through the classic dashboard to edit WiFi credentials, API keys, etc.
+
 ## 0.2.6 — 2026-04-23
 
 - Expose `default_compile_process_limit` add-on option (matches the stock ESPHome add-on). Set the number of devices that can compile in parallel from the add-on Configuration tab.
