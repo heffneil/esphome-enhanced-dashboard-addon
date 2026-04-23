@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from pathlib import Path
 from typing import TYPE_CHECKING, TypedDict
 
@@ -13,6 +14,47 @@ if TYPE_CHECKING:
     from .entries import DashboardEntry
 
 _LOGGER = logging.getLogger(__name__)
+
+_KNOWN_PLATFORMS = frozenset({
+    "esp32", "esp8266", "bk72xx", "rtl87xx", "rp2040", "host",
+})
+
+_PLATFORM_RE = re.compile(
+    r'^(' + '|'.join(sorted(_KNOWN_PLATFORMS)) + r')\s*:',
+    re.MULTILINE,
+)
+_ESPHOME_BLOCK_RE = re.compile(r'^esphome\s*:\s*\n((?:[ \t]+\S.*\n?)*)', re.MULTILINE)
+_FIELD_RE = re.compile(r'^\s+(friendly_name|comment)\s*:\s*(.+)', re.MULTILINE)
+
+
+def _info_from_yaml(config_path: Path) -> dict:
+    """Extract basic device info by scanning YAML text without parsing.
+
+    Uses regex instead of yaml.safe_load so !secret and !include tags
+    (common in ESPHome configs) do not cause the read to fail.
+    """
+    try:
+        text = config_path.read_text(encoding="utf-8")
+    except Exception:  # pylint: disable=broad-except
+        _LOGGER.debug("Could not read %s for YAML info", config_path)
+        return {}
+
+    result = {}
+
+    m = _PLATFORM_RE.search(text)
+    if m:
+        result["target_platform"] = m.group(1)
+
+    block_m = _ESPHOME_BLOCK_RE.search(text)
+    if block_m:
+        for fm in _FIELD_RE.finditer(block_m.group(1)):
+            key, val = fm.group(1), fm.group(2).strip().strip("\"'")
+            # Skip unresolved ESPHome substitution variables like ${comment}
+            if val and not re.search(r'\$\{', val):
+                result[key] = val
+
+    _LOGGER.debug("YAML info for %s: %s", config_path, result)
+    return result
 
 
 class ImportableDeviceDict(TypedDict):
@@ -115,15 +157,16 @@ def build_archived_device_list(
                 )
             )
         else:
-            name = Path(filename).stem.replace("-", " ").replace("_", " ")
+            yaml_info = _info_from_yaml(path)
+            name = yaml_info.get("friendly_name") or Path(filename).stem.replace("-", " ").replace("_", " ")
             archived.append(
                 ArchivedDeviceDict(
                     name=name,
-                    friendly_name=None,
+                    friendly_name=yaml_info.get("friendly_name"),
                     configuration=filename,
-                    comment=None,
+                    comment=yaml_info.get("comment"),
                     address=None,
-                    target_platform=None,
+                    target_platform=yaml_info.get("target_platform"),
                     tags=tags.get(filename, []),
                 )
             )
@@ -148,6 +191,15 @@ def build_device_list_response(
         d = dict(entry.to_dict())
         d["tags"] = tags.get(entry.filename, [])
         d["inactive"] = entry.filename in inactive
+        if not d.get("target_platform") or not d.get("friendly_name") or not d.get("comment"):
+            try:
+                config_path = Path(dashboard.settings.rel_path(entry.filename))
+                if config_path.exists():
+                    for key, val in _info_from_yaml(config_path).items():
+                        if not d.get(key):
+                            d[key] = val
+            except Exception:  # pylint: disable=broad-except
+                pass
         configured.append(d)
     try:
         archived = build_archived_device_list(tags)
