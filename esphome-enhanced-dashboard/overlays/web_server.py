@@ -715,8 +715,12 @@ class DashboardEventsWebSocket(CheckOriginMixin, tornado.websocket.WebSocketHand
         """Create an entry event handler."""
 
         def handler(event: Event) -> None:
+            entry = event.data["entry"]
+            d = dict(entry.to_dict())
+            d["tags"] = DASHBOARD.device_tags.get(entry.filename, [])
+            d["inactive"] = entry.filename in DASHBOARD.inactive_devices
             self._safe_send_message(
-                {"event": event_type, "data": {"device": event.data["entry"].to_dict()}}
+                {"event": event_type, "data": {"device": d}}
             )
 
         return handler
