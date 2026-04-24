@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.8 — 2026-04-23
+
+Merges [#6](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/6) from @lilmansplace:
+
+- Populate **Platform, Name, Friendly Name, Comment** columns from the YAML config when a device has no StorageJSON (never compiled) or stale StorageJSON (renamed after last compile)
+- Handle `packages:`, `!include`, and `${substitution}` references correctly via ESPHome's own `yaml_util`
+- Indent-aware line-by-line fallback parser when `load_yaml` raises
+- Live `entry_updated`/`entry_added` WebSocket events now apply the same YAML fallback so columns don't blank out after a compile/upload
+- New **Friendly Name** column between Name and IP Address, toggleable from the ☰ column menu, sortable
+
 ## 0.2.7 — 2026-04-23
 
 - Add **Secrets** button in the topbar that opens `secrets.yaml` in the embedded Ace editor — no need to round-trip through the classic dashboard to edit WiFi credentials, API keys, etc.
