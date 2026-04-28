@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.9 — 2026-04-24
+
+- Fix **Show API Key** button always reporting "No API key found". Now reads the encryption key (or legacy password) directly from the device's YAML and resolves `!secret` references against `secrets.yaml`. Reports a clear error if no `api:` block is configured.
+
 ## 0.2.8 — 2026-04-23
 
 Merges [#6](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/6) from @lilmansplace:
