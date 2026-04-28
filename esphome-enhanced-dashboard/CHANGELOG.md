@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.11 — 2026-04-28
+
+- Sort selection (column + ascending/descending) now persists across page reloads, browser restarts, and ingress sessions. Stored in `localStorage` per browser; clear it via DevTools → Application → Storage if you want to reset.
+
 ## 0.2.10 — 2026-04-28
 
 - Rebuild on ESPHome 2026.4.3 (latest upstream release)
