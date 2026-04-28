@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.10 — 2026-04-28
+
+- Rebuild on ESPHome 2026.4.3 (latest upstream release)
+
 ## 0.2.9 — 2026-04-24
 
 - Fix **Show API Key** button always reporting "No API key found". Now reads the encryption key (or legacy password) directly from the device's YAML and resolves `!secret` references against `secrets.yaml`. Reports a clear error if no `api:` block is configured.
