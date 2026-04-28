@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.12 — 2026-04-28
+
+- "(Update Available)" indicator now only shows when the device's deployed version is **older** than the dashboard's. Devices running a newer version (e.g. installed manually with a beta) no longer get nagged into a downgrade. Same logic applied to the side panel's Update button.
+
 ## 0.2.11 — 2026-04-28
 
 - Sort selection (column + ascending/descending) now persists across page reloads, browser restarts, and ingress sessions. Stored in `localStorage` per browser; clear it via DevTools → Application → Storage if you want to reset.
