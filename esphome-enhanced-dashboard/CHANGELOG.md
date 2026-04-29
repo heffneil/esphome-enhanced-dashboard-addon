@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.13 — 2026-04-29
+
+- Suppress Ace editor false-positive `Unknown tag !<!secret>` (and `!include`, `!lambda`) warnings. Real YAML errors (indentation, syntax) are still flagged. Closes [#8](https://github.com/heffneil/esphome-enhanced-dashboard/issues/8).
+
 ## 0.2.12 — 2026-04-28
 
 - "(Update Available)" indicator now only shows when the device's deployed version is **older** than the dashboard's. Devices running a newer version (e.g. installed manually with a beta) no longer get nagged into a downgrade. Same logic applied to the side panel's Update button.
