@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.14 — 2026-04-29
+
+- Tighten the Ace warning filter to allowlist only known ESPHome tags (`!secret`, `!include`, `!include_dir_list`, `!include_dir_named`, `!include_dir_merge_list`, `!include_dir_merge_named`, `!lambda`, `!env`, `!extend`, `!remove`). Typos and other genuinely unknown tags are still flagged.
+
 ## 0.2.13 — 2026-04-29
 
 - Suppress Ace editor false-positive `Unknown tag !<!secret>` (and `!include`, `!lambda`) warnings. Real YAML errors (indentation, syntax) are still flagged. Closes [#8](https://github.com/heffneil/esphome-enhanced-dashboard/issues/8).
