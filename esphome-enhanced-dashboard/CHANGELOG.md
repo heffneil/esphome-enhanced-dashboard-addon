@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.15 — 2026-05-01
+
+- Pin the topbar, tag bar, and selection (batch) bar to the top of the page. Only the device list scrolls now, so search, **+ New Device**, **Secrets**, the column-toggle menu, and bulk-action buttons stay visible no matter how long the device list is. Closes the "buttons disappear when you scroll" report.
+
 ## 0.2.14 — 2026-04-29
 
 - Tighten the Ace warning filter to allowlist only known ESPHome tags (`!secret`, `!include`, `!include_dir_list`, `!include_dir_named`, `!include_dir_merge_list`, `!include_dir_merge_named`, `!lambda`, `!env`, `!extend`, `!remove`). Typos and other genuinely unknown tags are still flagged.
