@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.16 — 2026-05-16
+
+Merges [#8](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/8) from @dafal — closes [#7](https://github.com/heffneil/esphome-enhanced-dashboard-addon/issues/7) from @guy0nabuffalo:
+
+- New **Download Firmware...** button in the device side panel, between Compile and Logs. One-click download of the compiled `.bin`.
+- Multi-artifact builds (firmware + bootloader + partitions + OTA data on ESP32) get a radio-button picker so you can grab exactly the piece you need. Use with [web.esphome.io](https://web.esphome.io/), `esphome-flasher`, or `esptool.py` to flash brand-new devices over USB.
+- Friendly "compile this device first" message when no build exists yet.
+- Backend extracted the path-resolution logic into a shared static method and now filters the `/downloads` list to only include artifacts whose files actually exist on disk. Listing endpoint short-circuits to a fast 404 when `firmware_bin_path is None` instead of doing expensive YAML parsing on never-compiled devices.
+
 ## 0.2.15 — 2026-05-01
 
 - Pin the topbar, tag bar, and selection (batch) bar to the top of the page. Only the device list scrolls now, so search, **+ New Device**, **Secrets**, the column-toggle menu, and bulk-action buttons stay visible no matter how long the device list is. Closes the "buttons disappear when you scroll" report.
