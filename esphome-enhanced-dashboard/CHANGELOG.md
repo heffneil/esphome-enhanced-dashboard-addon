@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.19 — 2026-06-03
+
+- Fix import error against ESPHome 2026.5.x base (`ImportError: cannot import name 'platformio_api'`). Upstream relocated `esphome.platformio_api` to `esphome.platformio.toolchain` in 2026.5.0; overlay now tries both so the same source builds against 2026.4.x and 2026.5.x bases. 0.2.18 was broken in a restart loop against 2026.5.2 — this is the fix.
+
 ## 0.2.18 — 2026-06-03
 
 - Rebuild on **ESPHome 2026.5.2** (was 2026.4.3). Picks up the upstream 2026.5.0 minor release plus 2 patches. Notable bug fixes pulled in:
