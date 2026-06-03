@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.18 — 2026-06-03
+
+- Rebuild on **ESPHome 2026.5.2** (was 2026.4.3). Picks up the upstream 2026.5.0 minor release plus 2 patches. Notable bug fixes pulled in:
+  - WiFi connection fix in safe mode
+  - Bundle `secrets.yaml` correctly when `!secret` keys are quoted
+  - Substitutions sibling references inside dict-valued substitutions
+  - API crash loop on `VoiceAssistantConfigurationRequest`
+  - `esphome.area` now persists in StorageJSON
+  - Toolchain change auto-cleans build dir
+  - ESP8266 timer/UART responsiveness improvements
+  - Multiple ESP-IDF hardening fixes
+
 ## 0.2.17 — 2026-06-03
 
 Merges [#9](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/9) from @dafal:
