@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/esphome/esphome-hassio:2026.4.3
+ARG BUILD_FROM=ghcr.io/esphome/esphome-hassio:2026.5.2
 FROM ${BUILD_FROM}
 
 # Overlay enhanced dashboard files on top of the official ESPHome add-on image.
