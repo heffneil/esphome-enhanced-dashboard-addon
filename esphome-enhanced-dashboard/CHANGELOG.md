@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.17 — 2026-06-03
+
+Merges [#9](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/9) from @dafal:
+
+- **Friendly Name / Name columns now populate on first dashboard load** for devices whose `esphome.name` and `esphome.friendly_name` live entirely inside `!include`d package files — previously these stayed blank until you edited and saved the YAML.
+- **Remote GitHub packages** (the `url:` / `files:` shape) are also resolved for dashboard metadata. Root `substitutions:` correctly override package defaults.
+- Remote reads are lightweight (metadata only, no full YAML validation), cached per process, capped at a 10s timeout, and restricted to `github.com` URLs (no SSRF risk).
+
 ## 0.2.16 — 2026-05-16
 
 Merges [#8](https://github.com/heffneil/esphome-enhanced-dashboard-addon/pull/8) from @dafal — closes [#7](https://github.com/heffneil/esphome-enhanced-dashboard-addon/issues/7) from @guy0nabuffalo:
