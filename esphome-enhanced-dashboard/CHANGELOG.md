@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.20 — 2026-06-09
+
+Fix for [#12](https://github.com/heffneil/esphome-enhanced-dashboard/issues/12) — reported by @goofy7264, @lusanagi, @TSparkas:
+
+- **HA add-on builds were stuck on ESPHome 2026.4.3 even after the 0.2.18 base bump.** The GitHub Actions workflow had `BUILD_FROM=ghcr.io/esphome/esphome-hassio:2026.4.3` hardcoded as a `build-arg`, which silently overrode the Dockerfile's `ARG BUILD_FROM` default. So the add-on version label updated (0.2.17 → 0.2.18 → 0.2.19) but the actual ESPHome inside the container did not. Docker Hub users were unaffected — they got 2026.5.2 — but HA add-on users were still on 2026.4.3. This release rebuilds against **ESPHome 2026.5.2** for real.
+- Workflow no longer passes `BUILD_FROM`. The Dockerfile's `ARG BUILD_FROM=...` is now the single source of truth, so bumping the base version only ever requires editing one file.
+
 ## 0.2.19 — 2026-06-03
 
 - Fix import error against ESPHome 2026.5.x base (`ImportError: cannot import name 'platformio_api'`). Upstream relocated `esphome.platformio_api` to `esphome.platformio.toolchain` in 2026.5.0; overlay now tries both so the same source builds against 2026.4.x and 2026.5.x bases. 0.2.18 was broken in a restart loop against 2026.5.2 — this is the fix.
